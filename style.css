@@ -37,6 +37,14 @@
     font-weight: 600;
     font-style: normal;
   }
+  h5 {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1rem;
+    color: var(--accent2);
+  }
 }
 
 body {
@@ -44,6 +52,24 @@ body {
 }
 
 .control-panel {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  button {
+    border: 0;
+    background-color: var(--secondary);
+    font-family: "Work Sans", sans-serif;
+    margin: 0.25rem;
+    border-radius: 3px;
+
+    &:hover {
+      outline: var(--tertiary) solid 1px;
+    }
+    &:active {
+      background-color: var(--accent3);
+    }
+  }
 }
 .list {
   margin-left: auto;
@@ -55,18 +81,31 @@ body {
   display: flex;
   flex-direction: column;
   padding: 3.5rem;
+  padding-top: 1.5rem;
+
+  h1 {
+    color: var(--accent1);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+    font-size: clamp(2.25rem, -0.57rem + 13.4783vw, 5rem);
+  }
+  h3 {
+    margin-bottom: 0.5rem;
+  }
 }
 .input-section {
   margin-bottom: 2rem;
 }
 
 form {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
   input {
     background: transparent;
     border: 0;
     font-family: "Work Sans", sans-serif;
     color: var(--background);
-    width: 200px;
+    /* width: 200px; */
+    width: 300%;
 
     &::placeholder {
       font-family: "Work Sans", sans-serif;
@@ -225,4 +264,13 @@ form {
   100% {
     opacity: 1;
   }
+}
+
+#backdrop {
+  height: 80vh;
+  width: 100%;
+  background-color: var(--secondary);
+  z-index: -1;
+  position: absolute;
+  top: 43%;
 }
