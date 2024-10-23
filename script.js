@@ -171,6 +171,9 @@ function removeItem(event) {
   card.remove();
 
   console.log(`Removed task with UUID: ${uuid} from all lists and DOM`);
+
+  // Update number of items on list display
+  updateArrayLength();
 }
 
 function resetList() {
