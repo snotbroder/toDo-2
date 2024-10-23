@@ -6,10 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do v.2</title>
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <h1>To Do v2</h1>
+    <div class="control-panel">
+        <button id="resetList">reset active list</button>
+        <button id="resetDeactivatedList">reset deactivated list</button>
+        <button id="printList">print list</button>
+    </div>
+    <section class="list">
+        <div class="input-section" id="input">
+            <h1>Shopping list</h1>
+            <h3>Add new item</h2>
+                <form action="">
+
+                    <input placeholder="Item name" id="createTitle" type="text">
+                    <div class="config">
+                        <select id="createQuantity" type="number" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                        <button id="create">+</button>
+                    </div>
+                </form>
+                <h4 id="activeNumber"><span></span> items left to gather.</h4>
+        </div>
+        <!-- <article class="task-card">
+            <div class="information-wrapper">
+                <div class="status-button"></div>
+                <div class="info">
+                    <h4 data-type="title"><span>Item name</span></h4>
+                    <p data-type="quantity"><span>Amount</span></p>
+                </div>
+                <div class="remove-button"></div>
+            </div>
+            <p data-type="uuid">UUID: <span>Unique identification number</span></p>
+        </article> -->
+        <section id="displayTask">
+            <!-- active cards -->
+        </section>
+        <section id="deactivatedTask">
+            <!-- deactivated cards -->
+        </section>
+
+    </section>
+
+    <template id="tasks">
+        <article class="task-card">
+            <div class="button-wrapper">
+                <div class="information-wrapper">
+                    <div class="status-button"></div>
+                    <div class="info">
+                        <h4 data-type="title"><span>Item name</span></h4>
+                        <p data-type="quantity"><span>Amount</span></p>
+                    </div>
+                </div>
+                <div id="remove-button" class="remove-button"></div>
+            </div>
+            <p data-type="uuid">UUID: <span>Unique identification number</span></p>
+        </article>
+    </template>
 </body>
 <script src="script.js"></script>
 

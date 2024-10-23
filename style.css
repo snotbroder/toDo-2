@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+}
+:root {
+  --primary: #ffb17a;
+  --secondary: #fce762;
+  --tertiary: #201335;
+
+  --accent1: #4f4789ca;
+  --accent2: #db9868;
+  --accent3: #e8e6d6;
+
+  --background: #fffded;
+
+  p {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  h1 {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+  }
+  h3 {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  h4 {
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+}
+
+body {
+  background: var(--background);
+}
+.list {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 35rem;
+  min-height: 20rem;
+  background: var(--primary);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 3.5rem;
+}
+.input-section {
+  margin-bottom: 2rem;
+}
+
+form {
+  input {
+    background: transparent;
+    border: 0;
+    font-family: "Work Sans", sans-serif;
+    color: var(--background);
+
+    &::placeholder {
+      font-family: "Work Sans", sans-serif;
+      color: var(--background);
+    }
+  }
+  background-color: var(--accent2);
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  border: 1px var(--tertiary) solid;
+  border-radius: 100px;
+  padding: 1rem 0rem 1rem 2rem;
+
+  select {
+    background-color: var(--secondary);
+    border: 1px solid var(--tertiary);
+    border-radius: 10px;
+    padding: 0.25rem;
+    height: 30px;
+    width: 60px;
+  }
+
+  button {
+    height: 70px;
+    width: 70px;
+    padding: 0.5rem;
+    margin: -1rem 0 -1rem 0;
+    background-color: var(--secondary);
+    border-radius: 100px;
+    border: 1px solid var(--tertiary);
+  }
+
+  .config {
+    margin-left: auto;
+  }
+}
+
+.task-card {
+  padding: 1rem 1.5rem 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  background: #fffded;
+  border-radius: 5px;
+  border: var(--tertiary) solid 1px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+
+  transition: 0.2s ease all;
+  translate: 0 0px;
+
+  .status-button {
+    background: var(--accent3);
+    border: var(--tertiary) solid 1px;
+    aspect-ratio: 1/1;
+    width: 2rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 100px;
+  }
+
+  .remove-button {
+    background: var(--accent3);
+    border-radius: 3px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 1rem;
+    height: 1rem;
+    &::after {
+      font-family: "Work Sans", sans-serif;
+      content: "x";
+    }
+  }
+
+  [data-type="uuid"] {
+    font-size: 7px;
+    color: rgba(211, 211, 211, 0.492);
+    margin-top: 0.25rem;
+  }
+  &:hover {
+    transition: 0.3s ease all;
+    translate: 15px 0px;
+  }
+}
+
+.task-card .information-wrapper {
+  display: flex;
+  gap: 1rem;
+
+  .info {
+    color: var(--tertiary);
+    font-family: "Work Sans", sans-serif;
+    font-style: normal;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    display: flex;
+    gap: 0.25rem;
+    > :first-child::after {
+      content: ",";
+    }
+    & > ::after {
+      content: "pc.";
+      font-family: "Work Sans", sans-serif;
+    }
+  }
+}
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
+
+  > :last-child {
+    margin-left: auto;
+  }
+}
+
+.deactivated {
+  animation-name: deactivated;
+  animation-duration: 0.5s;
+  background: var(--accent3);
+  .info > * {
+    color: var(--accent1);
+    text-decoration: line-through;
+  }
+  .status-button {
+    background: var(--secondary);
+  }
+  .remove-button {
+    border: var(--tertiary) solid 1px;
+  }
+}
+
+@keyframes deactivated {
+  0% {
+    opacity: 0;
+    translate: 100px 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
