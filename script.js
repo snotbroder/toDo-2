@@ -3,11 +3,26 @@
 // Load items from localStorage arrays
 let list = JSON.parse(localStorage.getItem("taskList")) || [];
 let deactivatedList = JSON.parse(localStorage.getItem("deactivatedList")) || [];
+// Variables for color theme
+const domContent = document.querySelector("body");
+const selectElement = document.querySelector(".themeSelector");
 
 // Display items on page load
 document.addEventListener("DOMContentLoaded", () => {
   list.forEach(displayTask);
   deactivatedList.forEach(displayDeactivatedTask);
+
+  selectElement.addEventListener("change", (event) => {
+    console.log(`chosen: ${event.target.value}`);
+
+    if (event.target.value === "light") {
+      console.log();
+      domContent.dataset.theme = "light";
+    }
+    if (event.target.value === "dark") {
+      domContent.dataset.theme = "dark";
+    }
+  });
 });
 
 // Create item Button Event
