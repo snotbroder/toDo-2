@@ -1,28 +1,29 @@
 "use strict";
 
-// Load tasks from localStorage
+// Load items from localStorage arrays
 let list = JSON.parse(localStorage.getItem("taskList")) || [];
 let deactivatedList = JSON.parse(localStorage.getItem("deactivatedList")) || [];
 
-// Display tasks on page load
+// Display items on page load
 document.addEventListener("DOMContentLoaded", () => {
   list.forEach(displayTask);
   deactivatedList.forEach(displayDeactivatedTask);
 });
 
-// Create Task Button Event
+// Create item Button Event
 document.querySelector("#create").addEventListener("click", createTask);
 
-// Reset List Buttons
+// Controlpanel buttons -----------
 document.querySelector("#resetList").addEventListener("click", resetList);
 document.querySelector("#resetDeactivatedList").addEventListener("click", resetDeactivatedList);
-
-// Print List Button Event
 document.querySelector("#printList").addEventListener("click", printLists);
+// Controlpanel buttons -----------
 
+// add item function
 function createTask() {
   const title = document.querySelector("#createTitle").value;
   const quantity = document.querySelector("#createQuantity").value;
+  // Establish uuid whith creation of new item
   const uuid = self.crypto.randomUUID();
 
   if (!title || !quantity) {
@@ -30,14 +31,20 @@ function createTask() {
     return;
   }
 
+  // When I refer to tasks, I mean items in this scenario - but the system is supposed to be adaptable to any scenario.
   const task = { title, quantity, uuid };
   list.push(task);
   localStorage.setItem("taskList", JSON.stringify(list));
 
+  // Start displayTask function, which posts it to the dom using a template.
   displayTask(task);
-  resetInputFields();
-}
 
+  // Also, reset input fields
+  resetInputFields(() => {
+    document.querySelector("#createTitle").value = "";
+    document.querySelector("#createQuantity").value = "1";
+  });
+}
 function displayTask(task) {
   const template = document.querySelector("template#tasks").content.cloneNode(true);
   const card = template.querySelector(".task-card");
@@ -51,7 +58,7 @@ function displayTask(task) {
   // Append the card to the active list section
   document.querySelector("#displayTask").appendChild(card);
 
-  // Update number of items on list display
+  // Update number of items left to gather
   updateArrayLength();
 }
 
@@ -70,16 +77,12 @@ function displayDeactivatedTask(task) {
   document.querySelector("#deactivatedTask").appendChild(card);
 }
 
-function resetInputFields() {
-  document.querySelector("#createTitle").value = "";
-  document.querySelector("#createQuantity").value = "1";
-}
-
 // Event Delegation for Active and Deactivated Lists
 document.querySelector("#displayTask").addEventListener("click", handleCardClick);
 document.querySelector("#deactivatedTask").addEventListener("click", handleCardClick);
 
-// Event delegation to handle clicks on the remove button
+// Event delegation to handle clicks on the remove button. This is where I had some help of chatGPT, although it has not fixed the problem of not deleting items properly,
+//--> it has made it so you are able to click twice for the item to be deleted.
 document.querySelector("#displayTask").addEventListener("click", function (event) {
   if (event.target.closest(".remove-button")) {
     event.stopPropagation(); // Prevent the card click event from firing
@@ -94,16 +97,18 @@ document.querySelector("#deactivatedTask").addEventListener("click", function (e
   }
 });
 
-// Eventhandler HELP FROM CHATGPT
+// Eventhandler for the click events on the item card.
 function handleCardClick(event) {
   const card = event.target.closest(".task-card");
   if (!card) return; // Ignore clicks outside of cards
 
   const uuid = card.dataset.uuid;
+  // Search in either of the lists for the uuid of the clicked card
   const task = list.find((t) => t.uuid === uuid) || deactivatedList.find((t) => t.uuid === uuid);
 
   if (!task) return;
 
+  // This is where the toggle effect of the items take place
   if (card.classList.contains("deactivated")) {
     // Card is deactivated, re-add it to active list
     reAddTask(task);
@@ -176,6 +181,7 @@ function removeItem(event) {
   updateArrayLength();
 }
 
+// Controlpanel functions ----------------
 function resetList() {
   localStorage.removeItem("taskList");
   list = [];
@@ -198,6 +204,7 @@ function printLists() {
   console.log("Deactivated list");
   console.table(deactivatedList);
 }
+// Controlpanel functions ----------------
 function updateArrayLength() {
   document.querySelector("#activeNumber span").textContent = list.length;
 }
